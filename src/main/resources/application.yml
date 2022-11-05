@@ -1,0 +1,16 @@
+quarkus:
+  mongodb:
+    database: pais
+    connection-string: mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false
+  hibernate-orm:
+    database:
+      generation: drop-and-create
+  datasource:
+    username: root
+    password: 123456
+    jdbc:
+      url: jdbc:mysql://localhost:3306/pais?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      driver: com.mysql.cj.jdbc.Driver
+  rest-client:
+    post-proxy:
+      url-all-pais: http://www.geognos.com/api/en/countries/info/all.json
