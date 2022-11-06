@@ -14,3 +14,10 @@ quarkus:
   rest-client:
     post-proxy:
       url-all-pais: http://www.geognos.com/api/en/countries/info/all.json
+
+mp:
+  jwt:
+    verify:
+      issuer: byte-company
+      publickey:
+        location: publickey.pem
