@@ -38,8 +38,8 @@ public class PaisService implements IPaisService {
     }
 
     @Override
-    public PaisEntity updatePais(PaisEntity paisEntity, ObjectId id) {
-        PaisEntity pais=paisRepository.findById(id);
+    public PaisEntity updatePais(PaisEntity paisEntity, String name) {
+        PaisEntity pais=paisRepository.findByName(name);
         if (pais != null){
             paisRepository.update(paisEntity);
             return paisEntity;

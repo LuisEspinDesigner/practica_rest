@@ -14,7 +14,7 @@ public interface IPaisService  {
 
     boolean savePais(PaisEntity paisEntity);
 
-    PaisEntity updatePais(PaisEntity paisEntity,ObjectId id);
+    PaisEntity updatePais(PaisEntity paisEntity,String name);
     PaisEntity findByName(String name);
 
 }

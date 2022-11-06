@@ -7,6 +7,11 @@ import com.ws.model.mongo.dto.ResponseSmsDto;
 import com.ws.model.proxydto.RootDto;
 import com.ws.proxy.ApiProxyPais;
 import com.ws.services.mongo.IPaisService;
+import org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition;
+import org.eclipse.microprofile.openapi.annotations.info.Contact;
+import org.eclipse.microprofile.openapi.annotations.info.Info;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponseSchema;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.annotation.security.RolesAllowed;
@@ -17,6 +22,17 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("/v1")
+@OpenAPIDefinition(
+        info = @Info(
+                title = "Este servicio es un crud que consume el Api de http://www.geognos.com/api/en/countries/info/all.json",
+                version = "1.0.0",
+                contact = @Contact(
+                        name = "Luis Espin ",
+                        url = "www.google.com",
+                        email = "luis.espin2015@uteq.edu.ec"
+                )
+        )
+)
 public class appController {
 
     @Inject
@@ -32,6 +48,8 @@ public class appController {
     @GET
     @Path("Pais/{code}")
     //@RolesAllowed("admin")
+    @APIResponse(responseCode = "200" )
+    @APIResponseSchema(value = PaisEntity.class, responseCode = "200",responseDescription = "Extrae el pais segun el codigo Iso2 ")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response paisCode(@PathParam("code") String code) {
@@ -52,9 +70,16 @@ public class appController {
         @Path("pais/mongo/allpais")
         @Produces(MediaType.APPLICATION_JSON)
         @Consumes(MediaType.APPLICATION_JSON)
-        public List<PaisEntity> getPasesMongo(){
+        public Response getPasesMongo(){
+        return Response.ok(paisService.getAllPais()).build();
+        }
 
-        return paisService.getAllPais();
+        @POST
+        @Path("pais/mongo/update/{name}")
+        @Produces(MediaType.APPLICATION_JSON)
+        @Consumes(MediaType.APPLICATION_JSON)
+        public PaisEntity getPasesMongo(@PathParam("name") String name,PaisEntity pais){
+            return paisService.updatePais(pais,name);
         }
         @GET
         @RolesAllowed("")

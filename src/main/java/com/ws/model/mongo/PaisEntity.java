@@ -12,7 +12,7 @@ import org.bson.types.ObjectId;
 @NoArgsConstructor
 @ToString
 @MongoEntity(collection = "Pais")
-public class PaisEntity {
+public class PaisEntity extends PanacheMongoEntity {
     @BsonId
     private ObjectId id;
     private String name;
